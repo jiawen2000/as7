@@ -1,0 +1,139 @@
+
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>石虎犬殺</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .section {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .black-section {
+            background-color: black;
+            height: 100vh;
+        }
+
+        .parallax-container {
+            position: relative;
+            height: 1200vh; /* 改為1200vh */
+            overflow: hidden;
+        }
+
+        .parallax-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        #scene1-bg, #scene2-bg {
+            height: 1200vh; /* 背景層高度設為1200vh */
+        }
+
+        #scene1-mid, #scene1-front, #scene2-mid, #scene2-front {
+            height: 50%; /* 中景層和前景層圖片縮小至原本的50% */
+        }
+
+        /* Scene 1 Styles */
+        #scene1-bg {
+            background-image: url('https://i.imgur.com/gQyZxc7.jpeg');
+            z-index: 1;
+        }
+
+        #scene1-mid {
+            background-image: url('https://i.imgur.com/ZsvBKOu.png');
+            z-index: 2;
+        }
+
+        #scene1-front {
+            background-image: url('https://i.imgur.com/Q4ZOcYm.png');
+            z-index: 3;
+        }
+
+        /* Scene 2 Styles */
+        #scene2-bg {
+            background-image: url('https://i.imgur.com/v89y8BD.jpeg');
+            z-index: 1;
+        }
+
+        #scene2-mid {
+            background-image: url('https://i.imgur.com/YvQ9ZWr.png');
+            z-index: 2;
+        }
+
+        #scene2-front {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 2em;
+            text-align: center;
+            z-index: 3;
+            background: rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- Div 1 -->
+    <div class="black-section"></div>
+
+    <!-- Div 2 -->
+    <div class="parallax-container" id="scene1">
+        <div class="parallax-layer" id="scene1-bg"></div>
+        <div class="parallax-layer" id="scene1-mid"></div>
+        <div class="parallax-layer" id="scene1-front"></div>
+    </div>
+
+    <!-- Div 3 -->
+    <div class="black-section"></div>
+
+    <!-- Div 4 -->
+    <div class="parallax-container" id="scene2">
+        <div class="parallax-layer" id="scene2-bg"></div>
+        <div class="parallax-layer" id="scene2-mid"></div>
+        <div class="parallax-layer" id="scene2-front">
+            <p>石虎與遊蕩犬隻棲地重疊下的悲歌</p>
+        </div>
+    </div>
+
+    <!-- Div 5 -->
+    <div class="black-section"></div>
+
+    <script>
+        function handleScroll() {
+            // Scene 1 Parallax
+            const scene1 = document.getElementById('scene1');
+            const scene1Rect = scene1.getBoundingClientRect();
+            if (scene1Rect.top <= window.innerHeight && scene1Rect.bottom >= 0) {
+                const scrolled = window.pageYOffset;
+                document.getElementById('scene1-bg').style.transform = `translateY(${scrolled * 0.1}px)`;
+                document.getElementById('scene1-mid').style.transform = `translateX(${scrolled * 0.3}px)`;
+                document.getElementById('scene1-front').style.transform = `translateX(${-scrolled * 0.5}px)`;
+            }
+
+            // Scene 2 Parallax
+            const scene2 = document.getElementById('scene2');
+            const scene2Rect = scene2.getBoundingClientRect();
+            if (scene2Rect.top <= window.innerHeight && scene2Rect.bottom >= 0) {
+                const scrolled = window.pageYOffset - scene2.offsetTop;
+                document.getElementById('scene2-bg').style.transform = `translateY(${scrolled * 0.5}px)`;
+                document.getElementById('scene2-mid').style.transform = `translateY(${scrolled * 0.3}px)`;
+                document.getElementById('scene2-front').style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        }
+
+        window.addEventListener('scroll', handleScroll);
+    </script>
+</body>
+</html>
